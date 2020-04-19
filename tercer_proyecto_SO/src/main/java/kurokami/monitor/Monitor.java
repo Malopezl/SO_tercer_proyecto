@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public class Monitor {
     private ArrayList<Boxeador> pendientes;
-    private final int TOTAL_GUANTES;
+    private int totalGuantes;
     private int numeroOponentes;
     private int guantesDisponibles;
             
     public Monitor(int totalGuantes, int numeroOponentes){
-        this.TOTAL_GUANTES = totalGuantes;
+        this.totalGuantes = totalGuantes;
         this.guantesDisponibles = totalGuantes;
         this.pendientes = new ArrayList();
         this.numeroOponentes = numeroOponentes;
@@ -28,10 +28,27 @@ public class Monitor {
         return pendientes;
     }
 
-    public int getTOTAL_GUANTES() {
-        return TOTAL_GUANTES;
+    public int getTotalGuantes() {
+        return totalGuantes;
     }
 
+    public int getNumeroOponentes() {
+        return numeroOponentes;
+    }
+
+    public void setTotalGuantes(int totalGuantes) {
+        this.totalGuantes = totalGuantes;
+    }
+
+    public void setNumeroOponentes(int numeroOponentes) {
+        this.numeroOponentes = numeroOponentes;
+    }
+
+    public void setGuantesDisponibles(int guantesDisponibles) {
+        this.guantesDisponibles = guantesDisponibles;
+    }
+
+    
     public int getGuantesDisponibles() {
         return guantesDisponibles;
     }
