@@ -10,7 +10,7 @@ import kurokami.monitor.Monitor;
 
 /**
  *
- * @author tito88
+ * @author Gilda
  */
 public class Guantes extends javax.swing.JPanel {
 
@@ -28,12 +28,29 @@ public class Guantes extends javax.swing.JPanel {
     public void verificacion(int cant) {
         int no_oponentes = this.monitor.getNumeroOponentes();
         int diferencia = 0;
-        diferencia = cant-no_oponentes;
-        if(diferencia!=1){
+        diferencia = cant - no_oponentes;
+//        if (diferencia != 1) {
+//            if (diferencia < 0) {
+//                JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, "
+//                        + " No hay suficientes guantes", "mensaje", JOptionPane.INFORMATION_MESSAGE);
+//            } 
+//            else {
+//                JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, "
+//                        + "Deben de haber menos guantes", "mensaje", JOptionPane.INFORMATION_MESSAGE);
+//            }
+//        }
+        if (cant < 5) {
             JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, "
-                    + "", "mensaje", JOptionPane.INFORMATION_MESSAGE);
-  
+                    + " No hay suficientes guantes", "mensaje", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            confirmacion(cant);
+
         }
+    }
+
+    public void confirmacion(int cant) {
+        this.monitor.setGuantesDisponibles(cant);
+
     }
 
     /**
