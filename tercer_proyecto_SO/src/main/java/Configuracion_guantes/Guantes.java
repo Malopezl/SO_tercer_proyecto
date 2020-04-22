@@ -69,8 +69,6 @@ public class Guantes extends javax.swing.JPanel {
 
         jLabel1.setText("Configuracion de cantidad de guantes");
 
-        jTextField1.setText("jTextField1");
-
         jLabel2.setText("Cantidad de guantes");
 
         jButton1.setText("Realizar ajuste");
