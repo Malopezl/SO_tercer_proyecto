@@ -5,58 +5,52 @@
  */
 package kurokami.monitor;
 
+import consumidor.consumidor_t;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author marcos
  */
-public class Boxeador implements Runnable{
+public class Boxeador extends Thread{
      
     private Monitor monitor;
-    private Thread hilo;
     private int id;
     private int guantesUsando;
     private int tiempo;
+    private consumidor_t c;
+    private int indice;
 
-    public Boxeador(Monitor monitor, Thread hilo, int id, int guantesUsando, int tiempo) {
+    public Boxeador(int id, int tiempo, Monitor monitor, consumidor_t c) {
         this.monitor = monitor;
-        this.hilo = hilo;
         this.id = id;
-        this.guantesUsando = guantesUsando;
         this.tiempo = tiempo;
+        this.c = c;
+        indice = 0;
+    }
+    public void run(){
+//            int espera = (int)(Mathrandom()*1000);
+            int espera = (int)(tiempo*1000);
+            try {
+                this.sleep(espera);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Boxeador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.monitor.devolverGuantes();
+            consumidor_t.boxeadores.remove(this);
     }
 
-   
-    
-    public synchronized void Consumir(){
-        
-         try{
-            System.out.println("Boxeador "+ id + " esta peleando");
-            int espera = (int)(Math.random()*1000);
-            System.out.println("El tiempo de boxeo es de: " + (espera/1000));
-            hilo.sleep(espera);
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
+    public int getIdent() {
+        return id;
+    }
+
+    public int getTiempo() {
+        return tiempo;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
     }
     
-    public synchronized void Esperar(){
-        try{
-            System.out.println("Boxeador "+ id + " esta esperando");
-            int espera = (int)(Math.random()*1000);
-            System.out.println("Tiempo de espera: " + (espera/1000));
-            hilo.sleep(espera);
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-    }  
- 
-    public void run(){
-        while(true){
-            monitor.agregarBoxeador();
-            Esperar();
-            monitor.atenderBoxeador();
-            Consumir();
-            monitor.devolverGuantes();
-        }
-    }
 }
