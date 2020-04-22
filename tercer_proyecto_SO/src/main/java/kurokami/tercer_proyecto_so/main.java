@@ -7,6 +7,7 @@ package kurokami.tercer_proyecto_so;
 
 import kurokami.monitor.Monitor;
 import Configuracion_guantes.Guantes;
+import consumidor.*;
 
 /**
  *
@@ -15,12 +16,17 @@ import Configuracion_guantes.Guantes;
 public class main extends javax.swing.JFrame {
     private Monitor monitor;
     private Guantes guantes;
+    private consumidor_t c;
+    private actualizador actual;
+    pr prd;
+    private Consumidor cons;
+    
     /**
      * Creates new form main
      */
     public main() {
         initComponents();
-        inicializar();
+        this.inicializar();
     }
 
     /**
@@ -54,11 +60,21 @@ public class main extends javax.swing.JFrame {
 
         saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Ver historial de servicios");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setMnemonic('a');
         saveAsMenuItem.setText("Save As ...");
         saveAsMenuItem.setDisplayedMnemonicIndex(5);
+        saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveAsMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(saveAsMenuItem);
 
         menuBar.add(fileMenu);
@@ -84,6 +100,16 @@ public class main extends javax.swing.JFrame {
         this.setContentPane(guantes);
         
     }//GEN-LAST:event_openMenuItemActionPerformed
+
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+        // TODO add your handling code here:
+        this.setContentPane(cons);
+    }//GEN-LAST:event_saveMenuItemActionPerformed
+
+    private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
+        // TODO add your handling code here:
+        c.run();
+    }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,6 +137,9 @@ public class main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -130,5 +159,13 @@ public class main extends javax.swing.JFrame {
     private void inicializar(){
         monitor = new Monitor(5, 5);
         guantes = new Guantes(monitor);
+        
+        c = new consumidor_t(monitor);
+        c.start();
+        cons = new Consumidor(monitor, c);
+       actual = new actualizador(monitor, c);
+       actual.start();
+        
+        
     }
 }
